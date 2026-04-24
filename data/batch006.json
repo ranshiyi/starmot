@@ -1,0 +1,240 @@
+{
+  "batchInfo": {
+    "id": "006",
+    "name": "MOT关键时刻读书会第006期",
+    "startDate": "2026-03",
+    "memberCount": 14,
+    "description": "星光共创读书会第006期，聚焦MOT关键时刻方法论学习与实践"
+  },
+  "members": [
+    {
+      "id": "xieyufei",
+      "name": "谢宇飞",
+      "alias": "乐事",
+      "gender": "男",
+      "birthYear": "1999",
+      "industry": "工业制造",
+      "company": "重庆江跃泰",
+      "position": "副总经理",
+      "level": "高",
+      "learningGoal": "深入，透彻学习关键时刻",
+      "referrer": "何彦辰",
+      "hasPreRead": true,
+      "notesFile": "《关键时刻》读书笔记---邓菁.docx"
+    },
+    {
+      "id": "wangzhengjun",
+      "name": "王正军",
+      "alias": "Sky",
+      "gender": "男",
+      "birthYear": "1986",
+      "industry": "法律",
+      "company": "北京周泰（重庆）律师事务所",
+      "position": "合伙人",
+      "level": "高",
+      "learningGoal": "学习拓客方法",
+      "referrer": "金琛老师",
+      "hasPreRead": false,
+      "notesFile": "《关键时刻》感悟-王正军.pdf",
+      "interviewFile": "006 期学前交流纪要：与王正军的深度对话.docx"
+    },
+    {
+      "id": "wangmin",
+      "name": "王敏",
+      "alias": "雲晴",
+      "gender": "女",
+      "industry": "教育+文旅",
+      "company": "八中智慧云教育科技有限公司",
+      "position": "渠道负责人",
+      "level": "基",
+      "referrer": "金琛",
+      "hasPreRead": true,
+      "notesFile": "关键时刻读书笔记-雲晴.docx",
+      "interviewFile": "006期《MOT关键时刻》读书会·李莉娟学前交流纪要.docx"
+    },
+    {
+      "id": "fanchengqin",
+      "name": "范陈钦",
+      "alias": "范陈钦",
+      "gender": "男",
+      "industry": "人工智能+教育",
+      "company": "讯飞",
+      "position": "市场总监",
+      "level": "中",
+      "referrer": "金老师",
+      "hasPreRead": true
+    },
+    {
+      "id": "munianli",
+      "name": "沐念礼",
+      "alias": "沐沐",
+      "gender": "女",
+      "industry": "艺术教育",
+      "company": "艺树人美术",
+      "position": "创始人",
+      "level": "高",
+      "referrer": "范范",
+      "hasPreRead": true
+    },
+    {
+      "id": "xieqianqian",
+      "name": "谢倩倩",
+      "alias": "谢倩倩",
+      "gender": "女",
+      "industry": "证券行业",
+      "company": "兴业证券",
+      "position": "营业部负责人",
+      "level": "基",
+      "referrer": "文相吉",
+      "hasPreRead": true
+    },
+    {
+      "id": "shaopengyi",
+      "name": "邵鹏易",
+      "alias": "邵鹏易",
+      "gender": "男",
+      "industry": "教育+文旅",
+      "company": "新东方文旅",
+      "position": "活动执行",
+      "level": "基",
+      "learningGoal": "深化自我认知，精进管理能力，倾听多元思路，对标行业精英",
+      "referrer": "王敏",
+      "hasPreRead": true,
+      "notesFile": "《关键时刻》读书笔记——邵鹏易.docx",
+      "interviewFile": "邵鹏易学前交流纪要.docx"
+    },
+    {
+      "id": "gengxiaoqin",
+      "name": "耿小钦",
+      "alias": "小钦",
+      "gender": "女",
+      "industry": "美发",
+      "company": "东田美发",
+      "position": "首席美发师",
+      "level": "基",
+      "learningGoal": "提升自身的工作能力",
+      "referrer": "冉老师",
+      "hasPreRead": true
+    },
+    {
+      "id": "lijieying",
+      "name": "李洁莹",
+      "alias": "莹莹",
+      "gender": "女",
+      "industry": "团队服装",
+      "company": "格衫团服定制",
+      "position": "产品开发",
+      "level": "中",
+      "learningGoal": "学习用MOT方法论，升级业务",
+      "referrer": "罗春莉",
+      "hasPreRead": true,
+      "interviewFile": "MOT 006期学友·莹莹 学前交流实录.docx"
+    },
+    {
+      "id": "dengjing",
+      "name": "邓菁",
+      "alias": "诉讼律师邓菁",
+      "gender": "女",
+      "industry": "法律",
+      "company": "",
+      "position": "诉讼律师",
+      "level": "高",
+      "notesFile": "《关键时刻》读书笔记---邓菁.docx",
+      "profileFile": "学友档案_006期_诉讼律师邓菁.docx"
+    },
+    {
+      "id": "xukemei",
+      "name": "徐克美",
+      "alias": "徐克美",
+      "gender": "女",
+      "notesFile": "《关键时刻》读书笔记-徐克美.pdf"
+    },
+    {
+      "id": "chenyanyao",
+      "name": "陈焱垚",
+      "alias": "陈焱垚",
+      "gender": "女",
+      "notesFile": "《关键时刻》读书笔记---邓菁.docx"
+    },
+    {
+      "id": "wangyijin",
+      "name": "王艺锦",
+      "alias": "艺锦Eason",
+      "gender": "男",
+      "industry": "精细化工",
+      "position": "总经理",
+      "level": "高",
+      "referrer": "金老师",
+      "hasPreRead": true
+    },
+    {
+      "id": "chengziyin",
+      "name": "程子音",
+      "alias": "子音",
+      "gender": "女",
+      "industry": "教育",
+      "position": "创作者",
+      "referrer": "王励",
+      "hasPreRead": false
+    }
+  ],
+  "groups": [
+    {
+      "name": "纪律生活组",
+      "members": ["耿小钦", "西西里", "小邵"],
+      "responsibility": "考勤登记、纪律维护、班费管理、后勤采购"
+    },
+    {
+      "name": "外宣氛围组",
+      "members": ["雲晴", "莹莹", "莉娟"],
+      "responsibility": "活动拍照、照片精修、文案撰写、朋友圈运营"
+    },
+    {
+      "name": "学习作业组",
+      "members": ["谢宇飞", "沐沐"],
+      "responsibility": "读书任务统计、作业跟踪、课堂精华整理"
+    },
+    {
+      "name": "策划管家组",
+      "members": ["垚垚", "邓律师", "谢倩倩"],
+      "responsibility": "活动策划、流程设计、方案落地执行"
+    },
+    {
+      "name": "资源链接组",
+      "members": ["范陈钦", "徐克美", "王律师"],
+      "responsibility": "人脉资源对接、行业整合、资源互换"
+    }
+  ],
+  "materials": {
+    "interviews": [
+      "006 期学前交流纪要：与王正军的深度对话.docx",
+      "006期《MOT关键时刻》读书会·李莉娟学前交流纪要.docx",
+      "邵鹏易学前交流纪要.docx",
+      "MOT 006期学友·莹莹 学前交流实录.docx",
+      "雲晴星光共创读书会·MOT006期学前交流文档.docx"
+    ],
+    "notes": [
+      "《关键时刻》读书笔记---邓菁.docx",
+      "《关键时刻》读书笔记-陈焱垚.docx",
+      "《关键时刻》读书笔记-谢倩.pdf",
+      "《关键时刻》读书笔记-徐克美.pdf",
+      "《关键时刻》感悟-王正军.pdf",
+      "《关键时刻》读书笔记-雲晴.docx",
+      "关键时刻通读笔记 谢宇飞.pdf",
+      "《关键时刻》读书笔记——邵鹏易.docx",
+      "读《关键时刻MOT》有感-李莉娟.docx"
+    ],
+    "posters": [
+      "006期海报.png",
+      "共创案例知识海报/知识点_MOT第2章_006期.html",
+      "共创案例知识海报/案例_006期第2章_授权实践.html",
+      "共创案例知识海报/金句_006期第2章.html",
+      "共创案例知识海报/006期_班级自治创新.html"
+    ],
+    "knowledge": [
+      "MOT第1章_卡尔森核心知识梳理.md",
+      "MOT第1章学习资料_话题集与案例参考.md",
+      "从MOT关键时刻到服务4.0：顾客体验管理理论演进.docx"
+    ]
+  }
+}

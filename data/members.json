@@ -1,0 +1,174 @@
+{
+  "members": [
+    {
+      "id": "xixi",
+      "name": "王宗南",
+      "nickname": "西西",
+      "period": 6,
+      "industry": "零售/服装",
+      "role": "学友",
+      "tags": ["领读Top1", "一线实践", "定价权博弈案例"],
+      "bio": "服装零售从业者，善于一线授权实践，第2章领读投票第一名（4票）。"
+    },
+    {
+      "id": "lishaoyi",
+      "name": "邵鹏易",
+      "nickname": "小少",
+      "period": 6,
+      "industry": "旅游服务",
+      "role": "学友",
+      "tags": ["领读Top2", "备用金授权案例", "活动策划"],
+      "bio": "旅游服务从业者，实践500-1000元备用金授权，第2章领读投票第二名（3票）。"
+    },
+    {
+      "id": "lijieying",
+      "name": "李洁莹",
+      "nickname": "",
+      "period": 6,
+      "industry": "服务业",
+      "role": "学友/外宣",
+      "tags": ["领读Top3", "差异化激励案例", "学习作业组", "外宣氛围组"],
+      "bio": "服务业管理者，擅长差异化员工激励，第2章领读投票第三名（2票）。"
+    },
+    {
+      "id": "gengxiaoqin",
+      "name": "耿小钦",
+      "nickname": "",
+      "period": 6,
+      "industry": "未知",
+      "role": "学友/纪律生活组",
+      "tags": ["考勤登记", "纪律维护"],
+      "bio": "006期学友，纪律生活组成员。"
+    },
+    {
+      "id": "xixili",
+      "name": "西西里",
+      "nickname": "",
+      "period": 6,
+      "industry": "未知",
+      "role": "学友/纪律生活组",
+      "tags": ["现场秩序维护"],
+      "bio": "006期学友，纪律生活组成员。"
+    },
+    {
+      "id": "xiaoshao",
+      "name": "小邵",
+      "nickname": "",
+      "period": 6,
+      "industry": "未知",
+      "role": "学友/纪律生活组",
+      "tags": ["班费管理", "后勤采购"],
+      "bio": "006期学友，纪律生活组成员。"
+    },
+    {
+      "id": "pengqing",
+      "name": "雲晴",
+      "nickname": "",
+      "period": 6,
+      "industry": "未知",
+      "role": "学友/外宣氛围组",
+      "tags": ["活动拍照", "文案撰写", "氛围营造"],
+      "bio": "006期学友，外宣氛围组成员。"
+    },
+    {
+      "id": "yingying",
+      "name": "莹莹",
+      "nickname": "",
+      "period": 6,
+      "industry": "未知",
+      "role": "学友/外宣氛围组",
+      "tags": ["照片精修", "朋友圈运营"],
+      "bio": "006期学友，外宣氛围组成员。"
+    },
+    {
+      "id": "lijuan",
+      "name": "莉娟",
+      "nickname": "",
+      "period": 6,
+      "industry": "未知",
+      "role": "学友/外宣氛围组",
+      "tags": ["氛围营造", "活动预热"],
+      "bio": "006期学友，外宣氛围组成员。"
+    },
+    {
+      "id": "xieyufei",
+      "name": "谢宇飞",
+      "nickname": "",
+      "period": 6,
+      "industry": "未知",
+      "role": "学友/学习作业组",
+      "tags": ["读书任务统计", "作业跟踪"],
+      "bio": "006期学友，学习作业组成员。"
+    },
+    {
+      "id": "mumu",
+      "name": "沐沐",
+      "nickname": "",
+      "period": 6,
+      "industry": "未知",
+      "role": "学友/学习作业组",
+      "tags": ["课堂精华整理", "学习总结"],
+      "bio": "006期学友，学习作业组成员。"
+    },
+    {
+      "id": "yaozhou",
+      "name": "垚垚",
+      "nickname": "",
+      "period": 6,
+      "industry": "未知",
+      "role": "学友/策划管家组",
+      "tags": ["活动策划", "流程设计", "管家服务"],
+      "bio": "006期学友，策划管家组成员。"
+    },
+    {
+      "id": "denglvshi",
+      "name": "邓律师",
+      "nickname": "",
+      "period": 6,
+      "industry": "法律",
+      "role": "学友/策划管家组",
+      "tags": ["活动方案落地执行", "法律支持"],
+      "bio": "006期学友，策划管家组成员，法律行业。"
+    },
+    {
+      "id": "xieqianqian",
+      "name": "谢倩倩",
+      "nickname": "倩倩",
+      "period": 6,
+      "industry": "未知",
+      "role": "学友/策划管家组/学习作业组",
+      "tags": ["出行统筹", "管家服务", "作业督促"],
+      "bio": "006期学友，策划管家组成员，同时参与学习作业组。"
+    },
+    {
+      "id": "fanchengqin",
+      "name": "范陈钦",
+      "nickname": "",
+      "period": 6,
+      "industry": "未知",
+      "role": "学友/资源链接组",
+      "tags": ["人脉资源对接", "行业整合"],
+      "bio": "006期学友，资源链接组成员。"
+    },
+    {
+      "id": "xukemei",
+      "name": "徐克美",
+      "nickname": "",
+      "period": 6,
+      "industry": "未知",
+      "role": "学友/资源链接组",
+      "tags": ["资源互换", "信息互通"],
+      "bio": "006期学友，资源链接组成员。"
+    },
+    {
+      "id": "wanglvshi",
+      "name": "王律师",
+      "nickname": "",
+      "period": 6,
+      "industry": "法律",
+      "role": "学友/资源链接组",
+      "tags": ["互帮互助", "合作方案", "法律支持"],
+      "bio": "006期学友，资源链接组成员，法律行业。"
+    }
+  ]
+}

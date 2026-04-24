@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>知识点库 - 星光共创读书会</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  .chapter-section { margin-bottom: 36px; }
+  .chapter-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 16px; padding-bottom: 12px;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  .chapter-num {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: linear-gradient(135deg, #f59e0b, #f97316);
+    color: #fff; font-weight: 900; font-size: 15px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .chapter-title { font-size: 17px; font-weight: 800; color: #1e293b; }
+  .chapter-date { margin-left: auto; font-size: 12px; color: #94a3b8; }
+  .kp-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    border: 1px solid #e2e8f0;
+    padding: 20px 22px;
+    margin-bottom: 14px;
+    border-left: 4px solid #f59e0b;
+    transition: transform 0.2s;
+  }
+  .kp-card:hover { transform: translateX(4px); }
+  .kp-title { font-size: 15px; font-weight: 700; color: #1e293b; margin-bottom: 10px; }
+  .kp-points { font-size: 13px; color: #374151; line-height: 1.9; }
+  .kp-points p { margin-bottom: 6px; }
+  .kp-quote {
+    background: #fffbeb; border-radius: 12px;
+    padding: 12px 16px; margin-top: 12px;
+    font-size: 12px; color: #92400e; font-style: italic;
+    border-left: 3px solid #f59e0b;
+  }
+  .period-tabs { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
+  .period-tab {
+    padding: 8px 18px; border-radius: 12px;
+    font-size: 13px; font-weight: 600;
+    border: 1px solid #e2e8f0; background: #fff;
+    cursor: pointer; transition: all 0.2s; color: #475569;
+  }
+  .period-tab:hover, .period-tab.active {
+    background: #fef3c7; border-color: #f59e0b; color: #d97706;
+  }
+</style>
+</head>
+<body>
+
+<!-- 导航栏 -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="../index.html" class="nav-logo">
+      <span>🐾</span>星光共创读书会
+    </a>
+    <div class="nav-links">
+      <a href="../index.html">首页</a>
+      <a href="groups.html">班级自治</a>
+      <a href="members.html">学友档案</a>
+      <a href="knowledge.html" class="active">知识点库</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <div class="page-header">
+    <h1>💡 知识点库</h1>
+    <p>MOT各章核心知识点，随时查阅复习</p>
+  </div>
+
+  <div class="period-tabs" id="period-tabs"></div>
+
+  <div id="knowledge-container"></div>
+
+</div>
+
+<!-- 页脚 -->
+<div style="text-align:center; padding:32px 0; color:#94a3b8; font-size:13px; margin-top:40px;">
+  🐾 MOT星光共创读书会 · 006期 · 学友自主管理
+</div>
+
+<script>
+fetch('../data/knowledge.json')
+  .then(r => r.json())
+  .then(data => {
+    renderPeriods(data.periods);
+    renderAll(data);
+  });
+
+function renderPeriods(periods) {
+  const container = document.getElementById('period-tabs');
+  container.innerHTML = periods.map(p =>
+    `<button class="period-tab active" onclick="filterPeriod(${p.id}, this)">${p.name}</button>`
+  ).join('');
+}
+
+function renderAll(data) {
+  const container = document.getElementById('knowledge-container');
+  let html = '';
+  data.periods.forEach(p => {
+    const chapters = data.knowledge_points.filter(k => k.period === p.id);
+    if (chapters.length === 0) return;
+    html += `<div class="period-section" data-period="${p.id}">`;
+    p.chapters.forEach(ch => {
+      const points = data.knowledge_points.filter(k => k.chapter === ch.id && k.period === p.id);
+      if (points.length === 0) return;
+      html += `
+        <div class="chapter-section">
+          <div class="chapter-header">
+            <div class="chapter-num">${ch.id}</div>
+            <div class="chapter-title">第${ch.id}章 ${ch.title}</div>
+            <div class="chapter-date">${ch.date}</div>
+          </div>
+      `;
+      points.forEach(kp => {
+        const pointsHTML = kp.points.map(pt => `<p>• ${pt}</p>`).join('');
+        const quoteHTML = kp.quote ? `<div class="kp-quote">"${kp.quote}"</div>` : '';
+        html += `
+          <div class="kp-card">
+            <div class="kp-title">${kp.title}</div>
+            <div class="kp-points">${pointsHTML}</div>
+            ${quoteHTML}
+          </div>
+        `;
+      });
+      html += `</div>`;
+    });
+    html += `</div>`;
+  });
+  container.innerHTML = html;
+}
+
+function filterPeriod(id, btn) {
+  document.querySelectorAll('.period-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.period-section').forEach(s => {
+    s.style.display = s.dataset.period == id ? 'block' : 'none';
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>班级自治小组 - 星光共创读书会</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  .group-card {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    border: 1px solid #e2e8f0;
+    padding: 24px;
+    margin-bottom: 20px;
+    transition: transform 0.2s;
+  }
+  .group-card:hover { transform: translateY(-3px); }
+  .group-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+  .group-icon {
+    width: 48px; height: 48px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  .group-name { font-size: 18px; font-weight: 800; color: #1e293b; }
+  .group-num { margin-left: auto; font-size: 13px; color: #94a3b8; }
+  .group-members {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 14px;
+  }
+  .member-chip {
+    padding: 6px 14px;
+    border-radius: 10px;
+    font-size: 13px; font-weight: 600;
+  }
+  .group-duties {
+    background: #f8fafc;
+    border-left: 4px solid #f59e0b;
+    border-radius: 0 12px 12px 0;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #374151;
+    line-height: 1.8;
+  }
+  .group-duties strong { color: #d97706; }
+  .innovation-banner {
+    background: linear-gradient(135deg, #fffbeb, #fef3c7);
+    border: 2px solid #fde68a;
+    border-radius: 18px;
+    padding: 20px 24px;
+    margin-bottom: 28px;
+    text-align: center;
+  }
+  .innovation-banner h3 { font-size: 16px; color: #d97706; margin-bottom: 8px; }
+  .innovation-banner p { font-size: 13px; color: #92400e; line-height: 1.7; }
+</style>
+</head>
+<body>
+
+<!-- 导航栏 -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="../index.html" class="nav-logo">
+      <span>🐾</span>星光共创读书会
+    </a>
+    <div class="nav-links">
+      <a href="../index.html">首页</a>
+      <a href="groups.html" class="active">班级自治</a>
+      <a href="members.html">学友档案</a>
+      <a href="knowledge.html">知识点库</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <div class="page-header">
+    <h1>✨ 班级自治创新</h1>
+    <p>不设"班长"，五大功能组协同自治，人人都是共建者</p>
+  </div>
+
+  <div class="innovation-banner">
+    <h3>💡 自治模式创新</h3>
+    <p>打破传统班级管理模式，006期读书会首创<strong>五大功能组</strong>协同自治机制<br>
+    每位学友根据特长和兴趣加入对应小组，在共建中深度学习、共同成长</p>
+  </div>
+
+  <!-- 小组列表，由JS动态加载 -->
+  <div id="groups-container"></div>
+
+</div>
+
+<!-- 页脚 -->
+<div style="text-align:center; padding:32px 0; color:#94a3b8; font-size:13px; margin-top:40px;">
+  🐾 MOT星光共创读书会 · 006期 · 学友自主管理
+</div>
+
+<script>
+fetch('../data/groups.json')
+  .then(r => r.json())
+  .then(data => {
+    const container = document.getElementById('groups-container');
+    data.groups.forEach(g => {
+      const card = document.createElement('div');
+      card.className = 'group-card';
+      const membersHTML = g.members.map(m =>
+        `<span class="member-chip" style="background:#e0e7ff;color:#3730a3;">${m}</span>`
+      ).join('');
+      const dutiesHTML = g.duties.map(d => `<strong>${d}</strong>`).join(' · ');
+      card.innerHTML = `
+        <div class="group-header">
+          <div class="group-icon" style="background:linear-gradient(135deg, ${g.color[0]}, ${g.color[1]});">${g.icon}</div>
+          <div class="group-name">${g.name}</div>
+          <div class="group-num">${g.members.length}人</div>
+        </div>
+        <div class="group-members">${membersHTML}</div>
+        <div class="group-duties">${dutiesHTML}</div>
+      `;
+      container.appendChild(card);
+    });
+  });
+</script>
+</body>
+</html>

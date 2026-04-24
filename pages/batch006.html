@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MOT第006期 - 星光共创读书会</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* 顶部导航 */
+    .top-nav {
+      background: rgba(255,255,255,0.95);
+      border-radius: 12px;
+      padding: 12px 24px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .back-link {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .back-link:hover { text-decoration: underline; }
+
+    .nav-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1a1a2e;
+    }
+
+    /* 页面标题 */
+    .page-header {
+      background: rgba(255,255,255,0.95);
+      border-radius: 16px;
+      padding: 40px;
+      margin-bottom: 24px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    }
+
+    .page-header h1 {
+      font-size: 36px;
+      color: #1a1a2e;
+      margin-bottom: 12px;
+    }
+
+    .page-header .subtitle {
+      font-size: 18px;
+      color: #667eea;
+      font-weight: 500;
+    }
+
+    .batch-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 32px;
+      font-weight: 700;
+      color: #764ba2;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    /* 区块 */
+    .section {
+      background: rgba(255,255,255,0.95);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .section-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #1a1a2e;
+    }
+
+    /* 学友网格 */
+    .members-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .member-card {
+      background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+
+    .member-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+      border-color: #667eea;
+    }
+
+    .member-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: white;
+      font-weight: 600;
+      margin: 0 auto 12px;
+    }
+
+    .member-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a1a2e;
+      margin-bottom: 4px;
+    }
+
+    .member-alias {
+      font-size: 13px;
+      color: #667eea;
+      margin-bottom: 8px;
+    }
+
+    .member-info {
+      font-size: 12px;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .member-tags {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .tag-industry {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    .tag-level {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    /* 分组展示 */
+    .groups-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .group-card {
+      background: linear-gradient(135deg, #fefce8 0%, #fef9c3 100%);
+      border-radius: 12px;
+      padding: 24px;
+      border-left: 4px solid #eab308;
+    }
+
+    .group-name {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1a1a2e;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .group-members {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .group-member-tag {
+      padding: 4px 12px;
+      background: white;
+      border-radius: 16px;
+      font-size: 13px;
+      color: #1a1a2e;
+      font-weight: 500;
+    }
+
+    .group-responsibility {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.6;
+      padding-top: 12px;
+      border-top: 1px solid rgba(0,0,0,0.1);
+    }
+
+    /* 资料列表 */
+    .materials-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .material-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      background: #f9fafb;
+      border-radius: 12px;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .material-item:hover {
+      background: #f3f4f6;
+      transform: translateX(4px);
+    }
+
+    .material-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .material-info {
+      flex: 1;
+    }
+
+    .material-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: #1a1a2e;
+      margin-bottom: 4px;
+    }
+
+    .material-meta {
+      font-size: 13px;
+      color: #999;
+    }
+
+    /* 标签筛选 */
+    .filter-bar {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 8px 20px;
+      border-radius: 20px;
+      border: 2px solid #e0e0e0;
+      background: white;
+      color: #666;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      border-color: #667eea;
+      color: #667eea;
+      background: #f5f3ff;
+    }
+
+    /* 响应式 */
+    @media (max-width: 768px) {
+      .page-header h1 { font-size: 28px; }
+      .members-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+      .groups-grid { grid-template-columns: 1fr; }
+      .batch-stats { gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 顶部导航 -->
+    <div class="top-nav">
+      <a href="../../index.html" class="back-link">← 返回首页</a>
+      <span class="nav-title">MOT第006期</span>
+    </div>
+
+    <!-- 页面标题 -->
+    <div class="page-header">
+      <h1>📚 MOT关键时刻读书会</h1>
+      <div class="subtitle">第 006 期</div>
+      <div class="batch-stats">
+        <div class="stat-item">
+          <div class="stat-number" id="memberCount">-</div>
+          <div class="stat-label">学友人数</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">5</div>
+          <div class="stat-label">自治小组</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">10+</div>
+          <div class="stat-label">读书笔记</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">5+</div>
+          <div class="stat-label">学前交流</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 学友名录 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon" style="background: #ede9fe;">👥</div>
+        <div class="section-title">学友名录</div>
+      </div>
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterMembers('all')">全部</button>
+        <button class="filter-btn" onclick="filterMembers('高')">高阶班</button>
+        <button class="filter-btn" onclick="filterMembers('中')">中级班</button>
+        <button class="filter-btn" onclick="filterMembers('基')">基础班</button>
+      </div>
+      <div class="members-grid" id="membersGrid"></div>
+    </div>
+
+    <!-- 班级自治小组 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon" style="background: #fef9c3;">🏛️</div>
+        <div class="section-title">班级自治小组</div>
+      </div>
+      <div class="groups-grid" id="groupsGrid"></div>
+    </div>
+
+    <!-- 学前交流纪要 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon" style="background: #dbeafe;">📋</div>
+        <div class="section-title">学前交流纪要</div>
+      </div>
+      <div class="materials-list" id="interviewsList"></div>
+    </div>
+
+    <!-- 读书笔记 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon" style="background: #d1fae5;">📝</div>
+        <div class="section-title">学友读书笔记</div>
+      </div>
+      <div class="materials-list" id="notesList"></div>
+    </div>
+
+    <!-- 学习资料 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon" style="background: #fce7f3;">📖</div>
+        <div class="section-title">学习资料</div>
+      </div>
+      <div class="materials-list" id="knowledgeList"></div>
+    </div>
+  </div>
+
+  <script>
+    let allMembers = [];
+
+    // 加载数据
+    async function loadData() {
+      try {
+        const response = await fetch('../data/batch006.json');
+        const data = await response.json();
+        
+        // 更新统计
+        document.getElementById('memberCount').textContent = data.members.length;
+        
+        // 渲染学友
+        allMembers = data.members;
+        renderMembers(allMembers);
+        
+        // 渲染小组
+        renderGroups(data.groups);
+        
+        // 渲染学前交流纪要
+        renderMaterials('interviewsList', data.materials.interviews, '📋');
+        
+        // 渲染读书笔记
+        renderMaterials('notesList', data.materials.notes, '📝');
+        
+        // 渲染学习资料
+        renderMaterials('knowledgeList', data.materials.knowledge, '📖');
+        
+      } catch (error) {
+        console.error('加载数据失败:', error);
+      }
+    }
+
+    // 渲染学友卡片
+    function renderMembers(members) {
+      const grid = document.getElementById('membersGrid');
+      grid.innerHTML = members.map(m => `
+        <div class="member-card" onclick="showMemberDetail('${m.id}')">
+          <div class="member-avatar">${(m.name || m.alias || '?').charAt(0)}</div>
+          <div class="member-name">${m.name || m.alias}</div>
+          <div class="member-alias">${m.alias || ''}</div>
+          <div class="member-info">
+            ${m.industry || ''}<br>
+            ${m.position || ''}
+          </div>
+          <div class="member-tags">
+            ${m.level ? `<span class="tag tag-level">${m.level === '高' ? '高阶班' : m.level === '中' ? '中级班' : '基础班'}</span>` : ''}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // 筛选学友
+    function filterMembers(level) {
+      // 更新按钮状态
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      if (level === 'all') {
+        renderMembers(allMembers);
+      } else {
+        const filtered = allMembers.filter(m => m.level === level);
+        renderMembers(filtered);
+      }
+    }
+
+    // 渲染小组
+    function renderGroups(groups) {
+      const grid = document.getElementById('groupsGrid');
+      const icons = ['📋', '📸', '📚', '🎯', '🔗'];
+      
+      grid.innerHTML = groups.map((g, i) => `
+        <div class="group-card">
+          <div class="group-name">${icons[i] || '📌'} ${g.name}</div>
+          <div class="group-members">
+            ${g.members.map(m => `<span class="group-member-tag">${m}</span>`).join('')}
+          </div>
+          <div class="group-responsibility">📌 ${g.responsibility}</div>
+        </div>
+      `).join('');
+    }
+
+    // 渲染资料列表
+    function renderMaterials(containerId, items, icon) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = items.map(item => `
+        <div class="material-item">
+          <div class="material-icon" style="background: #f3f4f6;">${icon}</div>
+          <div class="material-info">
+            <div class="material-title">${item}</div>
+            <div class="material-meta">点击查看详情</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // 显示学友详情（预留）
+    function showMemberDetail(id) {
+      alert('学友详情页开发中...');
+    }
+
+    // 页面加载时执行
+    loadData();
+  </script>
+</body>
+</html>
