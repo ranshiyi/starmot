@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>提交读书笔记 - 星光共创读书会</title>
-  <!-- Netlify Forms 识别标签 -->
-  <meta name="netlify-insert-canonical" content="false">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
@@ -305,21 +303,22 @@
       <div class="success-icon">🎉</div>
       <div class="success-title">提交成功！</div>
       <div class="success-text">
-        感谢你的分享！<br>
-        笔记已成功提交，管理员审核后会展示在网站上。<br>
+        感谢你的分享！笔记已暂存本地。<br><br>
+        <span style="font-size:12px; color:#047857; background:#d1fae5; padding:8px 12px; border-radius:8px; display:inline-block;">
+          💡 请点击下方按钮复制笔记数据，发给管理员审核上线
+        </span>
+        <br><br>
+        <button id="copyBtn" style="padding:10px 24px; background:#059669; color:#fff; border:none; border-radius:10px; font-size:14px; font-weight:600; cursor:pointer;">📋 复制笔记数据</button>
+        <pre id="exportData" style="display:none;"></pre>
+        <br><br>
+        <a href="notes.html" style="color: #067652; font-weight: 600; text-decoration: none;">← 查看学友笔记</a>
+        &nbsp;&nbsp;
         <a href="submit-notes.html" style="color: #067652; font-weight: 600; text-decoration: none;">← 继续提交</a>
       </div>
     </div>
 
     <!-- 提交表单 -->
-    <form name="notes-submission" method="POST" data-netlify="true" enctype="multipart/form-data" class="form-card" id="submitForm" action="?success=true">
-      <!-- Netlify 表单识别 -->
-      <input type="hidden" name="form-name" value="notes-submission">
-      <!-- 防垃圾邮件字段（隐藏） -->
-      <p style="display:none;">
-        <label>不要填写此字段：<input name="bot-field"></label>
-      </p>
-
+    <form class="form-card" id="submitForm">
       <!-- 基本信息 -->
       <div class="form-section-title">📋 基本信息</div>
 
@@ -336,6 +335,26 @@
           <option value="005">第 005 期</option>
           <option value="004">第 004 期</option>
           <option value="other">其他</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">所属章节 <span class="required">*</span></label>
+        <select name="chapter" class="form-select" required>
+          <option value="">请选择章节</option>
+          <option value="1">第 1 章 · MOT是什么</option>
+          <option value="2">第 2 章 · 创造顾客比创造利润更重要</option>
+          <option value="3">第 3 章</option>
+          <option value="4">第 4 章</option>
+          <option value="5">第 5 章</option>
+          <option value="6">第 6 章</option>
+          <option value="7">第 7 章</option>
+          <option value="8">第 8 章</option>
+          <option value="9">第 9 章</option>
+          <option value="10">第 10 章</option>
+          <option value="11">第 11 章</option>
+          <option value="12">第 12 章</option>
+          <option value="13">第 13 章</option>
         </select>
       </div>
 
@@ -392,12 +411,53 @@
       document.getElementById('fileName').textContent = fileName ? `已选择：${fileName}` : '';
     });
 
-    // Netlify Forms 成功提交后显示提示
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('success') === 'true') {
+    // 表单提交处理（本地存储 + 导出）
+    document.getElementById('submitForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // 获取表单数据
+      const formData = {
+        id: 'note' + Date.now(),
+        name: this.elements['name'].value.trim(),
+        batch: this.elements['batch'].value,
+        chapter: this.elements['chapter'].value,
+        title: this.elements['title'].value.trim(),
+        content: this.elements['content'].value.trim(),
+        date: new Date().toISOString().split('T')[0],
+        status: '待审核',
+        likes: 0
+      };
+
+      // 验证必填项
+      if (!formData.name || !formData.batch || !formData.chapter || !formData.title || !formData.content) {
+        alert('请填写所有必填项！✋');
+        return;
+      }
+
+      // 保存到 localStorage
+      let notes = JSON.parse(localStorage.getItem('pendingNotes') || '[]');
+      notes.push(formData);
+      localStorage.setItem('pendingNotes', JSON.stringify(notes));
+
+      // 显示成功消息
       document.getElementById('successMessage').style.display = 'block';
-      document.getElementById('submitForm').style.display = 'none';
+      this.style.display = 'none';
       window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // 生成可复制的数据
+      const exportData = JSON.stringify(formData, null, 2);
+      document.getElementById('exportData').textContent = exportData;
+      document.getElementById('copyBtn').onclick = function() {
+        navigator.clipboard.writeText(exportData).then(() => {
+          alert('已复制！请将内容发给管理员 📋');
+        });
+      };
+    });
+
+    // 检查是否有待提交的笔记
+    const pendingNotes = JSON.parse(localStorage.getItem('pendingNotes') || '[]');
+    if (pendingNotes.length > 0) {
+      console.log(`本地已有 ${pendingNotes.length} 条待同步笔记`);
     }
   </script>
 </body>
