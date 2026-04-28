@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>提交读书笔记 - 星光共创读书会</title>
+  <!-- Netlify Forms 识别标签 -->
+  <meta name="netlify-insert-canonical" content="false">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* 顶部导航 */
+    .top-nav {
+      background: rgba(255,255,255,0.95);
+      border-radius: 12px;
+      padding: 12px 24px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .back-link {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .back-link:hover { text-decoration: underline; }
+
+    .nav-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1a1a2e;
+    }
+
+    /* 页面标题 */
+    .page-header {
+      background: rgba(255,255,255,0.95);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 24px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    }
+
+    .page-header .icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .page-header h1 {
+      font-size: 28px;
+      color: #1a1a2e;
+      margin-bottom: 8px;
+    }
+
+    .page-header p {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* 表单卡片 */
+    .form-card {
+      background: rgba(255,255,255,0.95);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    }
+
+    .form-section-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a1a2e;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* 表单组 */
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a2e;
+      margin-bottom: 8px;
+    }
+
+    .form-label .required {
+      color: #ef4444;
+      margin-left: 4px;
+    }
+
+    .form-input,
+    .form-textarea,
+    .form-select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      font-size: 15px;
+      color: #1a1a2e;
+      background: #fafafa;
+      transition: all 0.3s;
+      font-family: inherit;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus,
+    .form-select:focus {
+      outline: none;
+      border-color: #667eea;
+      background: white;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .form-textarea {
+      min-height: 200px;
+      resize: vertical;
+    }
+
+    .form-hint {
+      font-size: 12px;
+      color: #999;
+      margin-top: 6px;
+    }
+
+    /* 文件上传 */
+    .file-upload {
+      position: relative;
+      display: block;
+    }
+
+    .file-upload-input {
+      position: absolute;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+
+    .file-upload-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      border: 2px dashed #d1d5db;
+      border-radius: 12px;
+      background: #fafafa;
+      cursor: pointer;
+      transition: all 0.3s;
+      flex-wrap: wrap;
+    }
+
+    .file-upload-label:hover {
+      border-color: #667eea;
+      background: #f5f3ff;
+    }
+
+    .file-upload-icon {
+      font-size: 32px;
+    }
+
+    .file-upload-text {
+      flex: 1;
+    }
+
+    .file-upload-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a2e;
+    }
+
+    .file-upload-hint {
+      font-size: 12px;
+      color: #999;
+      margin-top: 4px;
+    }
+
+    .file-name {
+      font-size: 13px;
+      color: #667eea;
+      font-weight: 500;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    /* 提交按钮 */
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* 成功提示 */
+    .success-message {
+      display: none;
+      background: #d1fae5;
+      border: 2px solid #34d399;
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .success-message.show {
+      display: block;
+      animation: fadeIn 0.5s;
+    }
+
+    .success-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .success-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #065f46;
+      margin-bottom: 8px;
+    }
+
+    .success-text {
+      font-size: 14px;
+      color: #047857;
+      line-height: 1.6;
+    }
+
+    /* 响应式 */
+    @media (max-width: 768px) {
+      .page-header h1 { font-size: 24px; }
+      .form-card { padding: 24px; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 顶部导航 -->
+    <div class="top-nav">
+      <a href="../index.html" class="back-link">← 返回首页</a>
+      <span class="nav-title">提交读书笔记</span>
+    </div>
+
+    <!-- 页面标题 -->
+    <div class="page-header">
+      <div class="icon">📝</div>
+      <h1>提交读书笔记</h1>
+      <p>学友们可以在这里提交自己的 MOT 读书笔记<br>提交后会由管理员审核后展示在网站上</p>
+    </div>
+
+    <!-- 成功提示 -->
+    <div class="success-message" id="successMessage" style="display:none;">
+      <div class="success-icon">🎉</div>
+      <div class="success-title">提交成功！</div>
+      <div class="success-text">
+        感谢你的分享！<br>
+        笔记已成功提交，管理员审核后会展示在网站上。<br>
+        <a href="submit-notes.html" style="color: #067652; font-weight: 600; text-decoration: none;">← 继续提交</a>
+      </div>
+    </div>
+
+    <!-- 提交表单 -->
+    <form name="notes-submission" method="POST" data-netlify="true" enctype="multipart/form-data" class="form-card" id="submitForm" action="?success=true">
+      <!-- Netlify 表单识别 -->
+      <input type="hidden" name="form-name" value="notes-submission">
+      <!-- 防垃圾邮件字段（隐藏） -->
+      <p style="display:none;">
+        <label>不要填写此字段：<input name="bot-field"></label>
+      </p>
+
+      <!-- 基本信息 -->
+      <div class="form-section-title">📋 基本信息</div>
+
+      <div class="form-group">
+        <label class="form-label">学友姓名 <span class="required">*</span></label>
+        <input type="text" name="name" class="form-input" placeholder="请输入你的姓名" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">所属期数 <span class="required">*</span></label>
+        <select name="batch" class="form-select" required>
+          <option value="">请选择期数</option>
+          <option value="006">第 006 期</option>
+          <option value="005">第 005 期</option>
+          <option value="004">第 004 期</option>
+          <option value="other">其他</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">笔记标题 <span class="required">*</span></label>
+        <input type="text" name="title" class="form-input" placeholder="例如：MOT第2章读书笔记" required>
+      </div>
+
+      <!-- 笔记内容 -->
+      <div class="form-section-title">📝 笔记内容</div>
+
+      <div class="form-group">
+        <label class="form-label">笔记正文 <span class="required">*</span></label>
+        <textarea name="content" class="form-textarea" placeholder="请在这里输入你的读书笔记内容..." required></textarea>
+        <div class="form-hint">💡 可以简述你的读书心得、重点摘录或实践感悟</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">上传文件（可选）</label>
+        <div class="file-upload">
+          <input type="file" name="attachment" class="file-upload-input" id="fileInput" accept=".doc,.docx,.pdf,.jpg,.jpeg,.png,.txt">
+          <label class="file-upload-label" for="fileInput">
+            <div class="file-upload-icon">📎</div>
+            <div class="file-upload-text">
+              <div class="file-upload-title">点击上传文件</div>
+              <div class="file-upload-hint">支持 .doc / .docx / .pdf / .jpg / .png 格式</div>
+            </div>
+            <div class="file-name" id="fileName"></div>
+          </label>
+        </div>
+      </div>
+
+      <!-- 联系方式 -->
+      <div class="form-section-title">📞 联系方式（可选）</div>
+
+      <div class="form-group">
+        <label class="form-label">微信号</label>
+        <input type="text" name="wechat" class="form-input" placeholder="选填，方便管理员联系你">
+        <div class="form-hint">💡 如有问题，管理员可以通过微信联系你</div>
+      </div>
+
+      <!-- 提交按钮 -->
+      <button type="submit" class="submit-btn">
+        <span>🚀</span>
+        <span>提交读书笔记</span>
+      </button>
+    </form>
+  </div>
+
+  <script>
+    // 显示文件名
+    document.getElementById('fileInput').addEventListener('change', function(e) {
+      const fileName = e.target.files[0]?.name;
+      document.getElementById('fileName').textContent = fileName ? `已选择：${fileName}` : '';
+    });
+
+    // Netlify Forms 成功提交后显示提示
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('success') === 'true') {
+      document.getElementById('successMessage').style.display = 'block';
+      document.getElementById('submitForm').style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>

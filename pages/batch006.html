@@ -68,6 +68,26 @@
       font-size: 18px;
       color: #667eea;
       font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    .page-header .submit-btn {
+      display: inline-block;
+      padding: 12px 28px;
+      background: white;
+      color: #667eea;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .page-header .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
     }
 
     .batch-stats {
@@ -353,6 +373,7 @@
     <div class="page-header">
       <h1>📚 MOT关键时刻读书会</h1>
       <div class="subtitle">第 006 期</div>
+      <a href="submit-notes.html" class="submit-btn">✏️ 提交我的读书笔记</a>
       <div class="batch-stats">
         <div class="stat-item">
           <div class="stat-number" id="memberCount">-</div>
