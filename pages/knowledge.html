@@ -51,6 +51,57 @@
   .period-tab:hover, .period-tab.active {
     background: #fef3c7; border-color: #f59e0b; color: #d97706;
   }
+  .kp-card { cursor: pointer; }
+  .kp-card:hover { transform: translateX(4px); box-shadow: 0 6px 24px rgba(0,0,0,0.1); }
+  .kp-badge {
+    display: inline-block; padding: 3px 10px; border-radius: 8px;
+    font-size: 11px; font-weight: 700; margin-left: 8px;
+    background: #fef3c7; color: #d97706;
+  }
+  /* 详情弹窗 */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5); z-index: 1000;
+    align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal-box {
+    background: #fff; border-radius: 24px;
+    max-width: 600px; width: 100%; max-height: 85vh;
+    overflow-y: auto; padding: 36px 32px;
+    position: relative;
+    animation: slideUp 0.3s ease;
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .modal-close {
+    position: absolute; top: 16px; right: 20px;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: #f1f5f9; border: none; cursor: pointer;
+    font-size: 20px; color: #64748b;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .modal-close:hover { background: #fee2e2; color: #ef4444; }
+  .modal-chapter {
+    display: inline-block; padding: 4px 14px; border-radius: 10px;
+    background: linear-gradient(135deg, #f59e0b, #f97316);
+    color: #fff; font-size: 13px; font-weight: 800;
+    margin-bottom: 16px;
+  }
+  .modal-title { font-size: 22px; font-weight: 900; color: #1e293b; margin-bottom: 20px; line-height: 1.4; }
+  .modal-points { font-size: 15px; color: #374151; line-height: 2; }
+  .modal-points p { margin-bottom: 10px; padding-left: 12px; border-left: 3px solid #f59e0b; }
+  .modal-quote {
+    background: #fffbeb; border-radius: 16px;
+    padding: 18px 20px; margin-top: 24px;
+    font-size: 14px; color: #92400e; line-height: 1.8;
+    border-left: 4px solid #f59e0b;
+  }
+  .modal-quote-label { font-weight: 800; margin-bottom: 8px; color: #b45309; }
 </style>
 </head>
 <body>
@@ -65,7 +116,6 @@
       <a href="../index.html">首页</a>
       <a href="groups.html">班级自治</a>
       <a href="members.html">学友档案</a>
-      <a href="notes.html">学友笔记</a>
       <a href="knowledge.html" class="active">知识点库</a>
     </div>
   </div>
@@ -82,6 +132,30 @@
 
   <div id="knowledge-container"></div>
 
+<!-- 详情弹窗 -->
+<div class="modal-overlay" id="kpModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-chapter" id="modalChapter"></div>
+    <div class="modal-title" id="modalTitle"></div>
+    <div class="modal-points" id="modalPoints"></div>
+    <div class="modal-quote" id="modalQuote" style="display:none;">
+      <div class="modal-quote-label">💬 金句摘录</div>
+      <div id="modalQuoteText"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 点击遮罩关闭弹窗 -->
+<script>
+document.getElementById('kpModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
+</script>
+
 </div>
 
 <!-- 页脚 -->
@@ -93,6 +167,7 @@
 fetch('../data/knowledge.json')
   .then(r => r.json())
   .then(data => {
+    window._knowledgeData = data; // 存储到全局，供弹窗函数使用
     renderPeriods(data.periods);
     renderAll(data);
   });
@@ -126,10 +201,9 @@ function renderAll(data) {
         const pointsHTML = kp.points.map(pt => `<p>• ${pt}</p>`).join('');
         const quoteHTML = kp.quote ? `<div class="kp-quote">"${kp.quote}"</div>` : '';
         html += `
-          <div class="kp-card">
-            <div class="kp-title">${kp.title}</div>
+          <div class="kp-card" onclick="showKPDetail(${kp.id})">
+            <div class="kp-title">${kp.title}${kp.quote ? '<span class="kp-badge">含金句</span>' : ''}</div>
             <div class="kp-points">${pointsHTML}</div>
-            ${quoteHTML}
           </div>
         `;
       });
@@ -146,6 +220,31 @@ function filterPeriod(id, btn) {
   document.querySelectorAll('.period-section').forEach(s => {
     s.style.display = s.dataset.period == id ? 'block' : 'none';
   });
+}
+
+function showKPDetail(id) {
+  const kp = window._knowledgeData.knowledge_points.find(k => k.id === id);
+  const period = window._knowledgeData.periods.find(p => p.id === kp.period);
+  const chapter = period.chapters.find(c => c.id === kp.chapter);
+
+  document.getElementById('modalChapter').textContent = `第${kp.chapter}章 · ${chapter.title}`;
+  document.getElementById('modalTitle').textContent = kp.title;
+  document.getElementById('modalPoints').innerHTML = kp.points.map(pt => `<p>• ${pt}</p>`).join('');
+  const quoteBox = document.getElementById('modalQuote');
+  if (kp.quote) {
+    quoteBox.style.display = 'block';
+    document.getElementById('modalQuoteText').textContent = kp.quote;
+  } else {
+    quoteBox.style.display = 'none';
+  }
+
+  document.getElementById('kpModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('kpModal').classList.remove('show');
+  document.body.style.overflow = '';
 }
 </script>
 </body>
