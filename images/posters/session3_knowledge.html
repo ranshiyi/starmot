@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>共创知识海报 · 006期第3次</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans SC', 'PingFang SC', sans-serif;
+    background: #0f0f1a; display: flex; justify-content: center; align-items: flex-start;
+    min-height: 100vh; padding: 0;
+  }
+  .poster {
+    width: 390px;
+    background: linear-gradient(160deg, #0d1b2a 0%, #1b263b 40%, #1d2d44 100%);
+    border-radius: 0; overflow: hidden;
+    box-shadow: none; position: relative;
+  }
+  /* 顶部彩虹装饰 */
+  .poster::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px;
+    background: linear-gradient(90deg, #e94560, #f5a623, #06d6a0, #4cc9f0, #c77dff);
+  }
+  /* 右上角装饰圆 */
+  .deco-circle {
+    position: absolute; top: -60px; right: -60px;
+    width: 200px; height: 200px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(76,201,240,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* 头部 */
+  .header { padding: 28px 24px 20px; position: relative; }
+  .chapter-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.55); font-size: 12px; letter-spacing: 1px;
+    padding: 5px 14px; border-radius: 20px; margin-bottom: 18px;
+  }
+  .chapter-dot { width: 5px; height: 5px; border-radius: 50%; background: #4cc9f0; }
+  .main-title { font-size: 11px; letter-spacing: 3px; color: rgba(255,255,255,0.35); margin-bottom: 10px; }
+  .big-title { font-size: 22px; font-weight: 900; color: #fff; line-height: 1.25; margin-bottom: 6px; }
+  .big-sub { font-size: 13px; color: rgba(255,255,255,0.45); }
+
+  /* 分隔线 */
+  .divider { height: 1px; background: rgba(255,255,255,0.07); margin: 0 24px; }
+
+  /* 内容区 */
+  .body { padding: 20px 24px 16px; }
+
+  /* 知识点卡片 */
+  .kp-section { margin-bottom: 20px; }
+  .kp-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .kp-num {
+    width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 13px;
+  }
+  .kp-num.n1 { background: rgba(233,69,96,0.15); border: 1px solid rgba(233,69,96,0.4); color: #e94560; }
+  .kp-num.n2 { background: rgba(245,166,35,0.15); border: 1px solid rgba(245,166,35,0.4); color: #f5a623; }
+  .kp-num.n3 { background: rgba(6,214,160,0.15); border: 1px solid rgba(6,214,160,0.4); color: #06d6a0; }
+  .kp-title { font-size: 15px; font-weight: 700; color: #fff; }
+
+  /* KP1: BEM模型 */
+  .bem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+  .bem-card { border-radius: 8px; padding: 10px; }
+  .bem-card.env { background: rgba(76,201,240,0.08); border: 1px solid rgba(76,201,240,0.25); }
+  .bem-card.person { background: rgba(245,166,35,0.08); border: 1px solid rgba(245,166,35,0.25); }
+  .bem-label { font-size: 10px; letter-spacing: 1px; margin-bottom: 4px; }
+  .bem-card.env .bem-label { color: #4cc9f0; }
+  .bem-card.person .bem-label { color: #f5a623; }
+  .bem-items { font-size: 11px; color: rgba(255,255,255,0.8); line-height: 1.6; }
+  .bem-note {
+    background: rgba(255,255,255,0.04); border-radius: 6px; padding: 8px 12px;
+    font-size: 11px; color: rgba(255,255,255,0.7); line-height: 1.6;
+    border-left: 2px solid rgba(233,69,96,0.5);
+  }
+
+  /* KP2: 边际效应 */
+  .margin-stages { display: flex; align-items: stretch; gap: 0; margin: 0 0 10px; }
+  .mstage {
+    flex: 1; text-align: center; padding: 12px 6px;
+    background: rgba(255,255,255,0.04);
+    border-right: 1px solid rgba(255,255,255,0.06);
+    position: relative;
+  }
+  .mstage:last-child { border-right: none; border-radius: 0 8px 8px 0; }
+  .mstage:first-child { border-radius: 8px 0 0 8px; }
+  .mstage-icon { font-size: 18px; margin-bottom: 6px; }
+  .mstage-title { font-size: 11px; font-weight: 700; margin-bottom: 4px; letter-spacing: 0.5px; }
+  .mstage.n1 .mstage-title { color: #4ade80; }
+  .mstage.n2 .mstage-title { color: #f5a623; }
+  .mstage.n3 .mstage-title { color: #f87171; }
+  .mstage-desc { font-size: 10px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+  .margin-formula {
+    background: rgba(245,166,35,0.08); border: 1px solid rgba(245,166,35,0.2);
+    border-radius: 6px; padding: 8px 12px; margin-top: 8px;
+    font-size: 11px; color: rgba(255,255,255,0.78);
+  }
+  .margin-formula strong { color: #f5a623; }
+
+  /* KP3: 增长引擎 */
+  .engine-list { display: flex; flex-direction: column; gap: 8px; }
+  .engine-item {
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(255,255,255,0.04); border-radius: 8px; padding: 10px 12px;
+  }
+  .engine-icon { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+  .engine-item.n1 .engine-icon { background: rgba(233,69,96,0.15); }
+  .engine-item.n2 .engine-icon { background: rgba(6,214,160,0.15); }
+  .engine-item.n3 .engine-icon { background: rgba(76,201,240,0.15); }
+  .engine-text { flex: 1; }
+  .engine-name { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+  .engine-desc { font-size: 10px; color: rgba(255,255,255,0.6); }
+
+  /* 底部 */
+  .footer {
+    padding: 16px 24px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-brand { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.3); }
+  .footer-info { font-size: 10px; color: rgba(255,255,255,0.2); }
+</style>
+</head>
+<body>
+<div class="poster">
+  <div class="deco-circle"></div>
+  <div class="header">
+    <div class="chapter-tag"><span class="chapter-dot"></span>MOT星光共创读书会 · 006期第3次</div>
+    <div class="main-title">KNOWLEDGE POINTS</div>
+    <div class="big-title">本期核心知识点</div>
+    <div class="big-sub">第3章 · 用提高营业额代替降低成本</div>
+  </div>
+  <div class="divider"></div>
+  <div class="body">
+
+    <!-- KP1: BEM模型 -->
+    <div class="kp-section">
+      <div class="kp-header">
+        <div class="kp-num n1">1</div>
+        <div class="kp-title">吉尔伯特BEM行为工程模型</div>
+      </div>
+      <div class="bem-grid">
+        <div class="bem-card env">
+          <div class="bem-label">🎯 上三层（技术控制）</div>
+          <div class="bem-items">数据、资源流程、工具<br/>后果、奖励、激励</div>
+        </div>
+        <div class="bem-card person">
+          <div class="bem-label">👤 下三层（人员控制）</div>
+          <div class="bem-items">知识技能、天赋潜能<br/>态度动机</div>
+        </div>
+      </div>
+      <div class="bem-note">💡 优先从上三层找原因：北欧航空扭亏为盈，靠的是重构环境要素，而非简单换人</div>
+    </div>
+
+    <!-- KP2: 边际效应 -->
+    <div class="kp-section">
+      <div class="kp-header">
+        <div class="kp-num n2">2</div>
+        <div class="kp-title">边际效应三阶段</div>
+      </div>
+      <div class="margin-stages">
+        <div class="mstage n1">
+          <div class="mstage-icon">📈</div>
+          <div class="mstage-title">红利期</div>
+          <div class="mstage-desc">规模扩大<br/>成本均摊<br/>利润上升</div>
+        </div>
+        <div class="mstage n2">
+          <div class="mstage-icon">⚖️</div>
+          <div class="mstage-title">稳态区</div>
+          <div class="mstage-desc">最优状态<br/>客单价最低<br/>利润稳定</div>
+        </div>
+        <div class="mstage n3">
+          <div class="mstage-icon">📉</div>
+          <div class="mstage-title">反噬区</div>
+          <div class="mstage-desc">过度扩张<br/>成本激增<br/>利润下滑</div>
+        </div>
+      </div>
+      <div class="margin-formula">临界点法则：固定成本占比<strong>60%</strong>时，规模每扩大10%，边际成本下降<strong>12-18%</strong></div>
+    </div>
+
+    <!-- KP3: 增长引擎 -->
+    <div class="kp-section">
+      <div class="kp-header">
+        <div class="kp-num n3">3</div>
+        <div class="kp-title">增长引擎（来自《精益创业》）</div>
+      </div>
+      <div class="engine-list">
+        <div class="engine-item n1">
+          <div class="engine-icon">💰</div>
+          <div class="engine-text">
+            <div class="engine-name">付费式增长</div>
+            <div class="engine-desc">花钱买客户，靠收入覆盖获客成本</div>
+          </div>
+        </div>
+        <div class="engine-item n2">
+          <div class="engine-icon">🎯</div>
+          <div class="engine-text">
+            <div class="engine-name">黏着式增长</div>
+            <div class="engine-desc">靠产品价值留住客户，降低流失率</div>
+          </div>
+        </div>
+        <div class="engine-item n3">
+          <div class="engine-icon">🦠</div>
+          <div class="engine-text">
+            <div class="engine-name">病毒式增长</div>
+            <div class="engine-desc">客户自发传播，带来新用户</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="footer">
+    <div class="footer-brand">⭐ MOT星光共创读书会</div>
+    <div class="footer-info">006期 · 第3章 · 2026.05.07</div>
+  </div>
+</div>
+</body>
+</html>

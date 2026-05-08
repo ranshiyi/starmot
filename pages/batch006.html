@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MOT第006期 - 星光共创读书会</title>
+  <!-- CloudBase JS SDK -->
+  <script src="https://imgcache.qq.com/qcloud/tcbjs/1.10.0/tcb.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
@@ -327,6 +329,61 @@
       color: #999;
     }
 
+    /* 海报展示 */
+    .posters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .poster-card {
+      background: #f9fafb;
+      border-radius: 12px;
+      overflow: hidden;
+      text-decoration: none;
+      transition: all 0.3s;
+      border: 2px solid transparent;
+    }
+    .poster-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(102, 126, 234, 0.25);
+      border-color: #667eea;
+    }
+    .poster-thumb {
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .poster-preview {
+      text-align: center;
+      color: white;
+    }
+    .preview-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    .preview-items {
+      font-size: 12px;
+      opacity: 0.85;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+    .poster-info {
+      padding: 16px;
+    }
+    .poster-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1a1a2e;
+      margin-bottom: 4px;
+    }
+    .poster-meta {
+      font-size: 13px;
+      color: #999;
+    }
+
     /* 标签筛选 */
     .filter-bar {
       display: flex;
@@ -436,6 +493,40 @@
       <div class="materials-list" id="notesList"></div>
     </div>
 
+    <!-- 课堂共创海报 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon" style="background: #e0e7ff;">🎨</div>
+        <div class="section-title">课堂共创海报</div>
+      </div>
+      <div class="posters-grid">
+        <a href="../images/posters/session3_knowledge.html" target="_blank" class="poster-card">
+          <div class="poster-thumb" style="background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 50%, #1d2d44 100%);">
+            <div class="poster-preview">
+              <div class="preview-title">本期核心知识点</div>
+              <div class="preview-items">BEM模型 · 边际效应 · 增长引擎</div>
+            </div>
+          </div>
+          <div class="poster-info">
+            <div class="poster-name">📚 共创知识海报</div>
+            <div class="poster-meta">第3次课 · 2026.05.07</div>
+          </div>
+        </a>
+        <a href="../images/posters/session3_cases.html" target="_blank" class="poster-card">
+          <div class="poster-thumb" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);">
+            <div class="poster-preview">
+              <div class="preview-title">学友案例分享</div>
+              <div class="preview-items">李莉娟 · 邵鹏易 · 莹莹 · 徐克美</div>
+            </div>
+          </div>
+          <div class="poster-info">
+            <div class="poster-name">💡 案例分享海报</div>
+            <div class="poster-meta">第3次课 · 2026.05.07</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
     <!-- 学习资料 -->
     <div class="section">
       <div class="section-header">
@@ -446,40 +537,279 @@
     </div>
   </div>
 
-  <script>
-    let allMembers = [];
+  <!-- 笔记详情弹窗 -->
+  <div id="noteModal" class="modal" style="display:none;">
+    <div class="modal-overlay" onclick="closeNoteModal()"></div>
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeNoteModal()">×</button>
+      <div class="modal-header">
+        <h2 id="modalTitle"></h2>
+        <div class="modal-meta">
+          <span id="modalAuthor"></span>
+          <span id="modalDate"></span>
+        </div>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-footer" id="modalFooter"></div>
+    </div>
+  </div>
 
-    // 加载数据
-    async function loadData() {
+  <style>
+    /* 弹窗样式 */
+    .modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal.show { display: flex; }
+    .modal-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+    }
+    .modal-content {
+      position: relative;
+      background: white;
+      border-radius: 16px;
+      max-width: 680px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .modal-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: none;
+      background: #f3f4f6;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      transition: all 0.2s;
+    }
+    .modal-close:hover { background: #e5e7eb; }
+    .modal-header {
+      padding: 24px 24px 16px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .modal-header h2 {
+      font-size: 20px;
+      color: #1a1a2e;
+      margin-bottom: 8px;
+    }
+    .modal-meta {
+      font-size: 13px;
+      color: #999;
+      display: flex;
+      gap: 16px;
+    }
+    .modal-body {
+      padding: 24px;
+      font-size: 15px;
+      line-height: 1.8;
+      color: #333;
+      white-space: pre-wrap;
+    }
+    .modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid #f0f0f0;
+    }
+    .modal-download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .modal-download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102,126,234,0.4);
+    }
+    @media (max-width: 768px) {
+      .modal-content { max-height: 90vh; }
+      .modal-header { padding: 20px 20px 12px; }
+      .modal-body { padding: 16px; }
+    }
+  </style>
+
+  <script>
+    const ENV_ID = 'startmot-d3gv7sga2d1eaecee';
+    const app = tcb.init({ env: ENV_ID });
+
+    let allMembers = [];
+    let cloudNotes = [];   // CloudBase 上的笔记
+
+    // ========== CloudBase 初始化 ==========
+    async function initCloudBase() {
       try {
-        const response = await fetch('../data/batch006.json');
-        const data = await response.json();
-        
-        // 更新统计
-        document.getElementById('memberCount').textContent = data.members.length;
-        
-        // 渲染学友
-        allMembers = data.members;
-        renderMembers(allMembers);
-        
-        // 渲染小组
-        renderGroups(data.groups);
-        
-        // 渲染学前交流纪要
-        renderMaterials('interviewsList', data.materials.interviews, '📋');
-        
-        // 渲染读书笔记
-        renderMaterials('notesList', data.materials.notes, '📝');
-        
-        // 渲染学习资料
-        renderMaterials('knowledgeList', data.materials.knowledge, '📖');
-        
-      } catch (error) {
-        console.error('加载数据失败:', error);
+        await app.auth().signInAnonymously();
+        console.log('CloudBase 匿名登录成功');
+        return true;
+      } catch (err) {
+        console.warn('CloudBase 匿名登录失败（笔记可能无法加载）:', err.message);
+        return false;
       }
     }
 
-    // 渲染学友卡片
+    // ========== 从 CloudBase 加载笔记 ==========
+    async function loadNotesFromCloudBase() {
+      try {
+        const res = await app.database()
+          .collection('notes')
+          .where({ batch: '006' })
+          .orderBy('submittedAt', 'desc')
+          .get();
+        cloudNotes = res.data || [];
+        console.log(`从 CloudBase 加载了 ${cloudNotes.length} 条笔记`);
+      } catch (err) {
+        console.warn('CloudBase 笔记加载失败:', err.message);
+        cloudNotes = [];
+      }
+    }
+
+    // ========== 加载静态数据 ==========
+    async function loadStaticData() {
+      try {
+        const response = await fetch('../data/batch006.json');
+        const data = await response.json();
+
+        // 更新统计
+        document.getElementById('memberCount').textContent = data.members.length;
+
+        // 渲染学友
+        allMembers = data.members;
+        renderMembers(allMembers);
+
+        // 渲染小组
+        renderGroups(data.groups);
+
+        // 渲染学前交流纪要
+        renderMaterials('interviewsList', data.materials.interviews, '📋', null);
+
+        // 渲染学习资料
+        renderMaterials('knowledgeList', data.materials.knowledge, '📖', null);
+
+      } catch (error) {
+        console.error('加载静态数据失败:', error);
+      }
+    }
+
+    // ========== 渲染学友读书笔记（合并静态 + CloudBase） ==========
+    function renderNotes() {
+      const container = document.getElementById('notesList');
+
+      // 合并：CloudBase 笔记在前（最新），静态笔记在后
+      const allNotes = [
+        ...cloudNotes.map(n => ({ ...n, _source: 'cloud' })),
+        ...(window._staticNotes || []).map(n => ({ ...n, _source: 'static' }))
+      ];
+
+      if (allNotes.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding:40px; color:#999;">
+            <div style="font-size:48px;margin-bottom:12px;">📝</div>
+            <div style="font-size:15px;">还没有学友笔记</div>
+            <div style="font-size:13px;margin-top:8px;">快来 <a href="submit-notes.html" style="color:#667eea;">提交第一篇</a> 吧！</div>
+          </div>`;
+        return;
+      }
+
+      container.innerHTML = allNotes.map(note => {
+        const date = note.submittedAt
+          ? new Date(note.submittedAt).toLocaleDateString('zh-CN')
+          : '';
+        return `
+          <div class="material-item" onclick="showNoteDetail(this)" data-note='${JSON.stringify(note).replace(/'/g, "&#39;")}'>
+            <div class="material-icon" style="background:#d1fae5;">📝</div>
+            <div class="material-info">
+              <div class="material-title">${note.title || note}</div>
+              <div class="material-meta">
+                ${note.name ? '👤 ' + note.name : ''}
+                ${date ? ' · ' + date : ''}
+              </div>
+            </div>
+          </div>`;
+      }).join('');
+
+      // 更新统计数字
+      const statEl = document.querySelector('.stat-item:nth-child(3) .stat-number');
+      if (statEl) statEl.textContent = allNotes.length + '+';
+    }
+
+    // ========== 显示笔记详情 ==========
+    function showNoteDetail(el) {
+      const note = JSON.parse(el.dataset.note);
+      const modal = document.getElementById('noteModal');
+
+      document.getElementById('modalTitle').textContent = note.title || '读书笔记';
+      document.getElementById('modalAuthor').textContent = note.name ? '👤 ' + note.name : '';
+      document.getElementById('modalDate').textContent = note.submittedAt
+        ? new Date(note.submittedAt).toLocaleDateString('zh-CN', { year:'numeric', month:'long', day:'numeric' })
+        : '';
+
+      const body = document.getElementById('modalBody');
+      if (note._source === 'cloud') {
+        body.innerHTML = `<div style="white-space:pre-wrap;line-height:1.8;">${escapeHtml(note.content || '')}</div>`;
+      } else {
+        // 静态笔记：显示原始文本
+        body.innerHTML = `<div style="color:#666;font-style:italic;">${escapeHtml(note.toString())}</div>`;
+      }
+
+      // 附件下载按钮
+      const footer = document.getElementById('modalFooter');
+      if (note.attachmentFileId) {
+        app.storage().getDownloadURL({ fileList: [note.attachmentFileId] }).then(res => {
+          if (res.fileList && res.fileList[0] && res.fileList[0].download_url) {
+            footer.innerHTML = `
+              <a href="${res.fileList[0].download_url}" target="_blank" class="modal-download-btn">
+                📎 下载附件
+              </a>`;
+          }
+        }).catch(() => {
+          footer.innerHTML = '';
+        });
+      } else {
+        footer.innerHTML = '';
+      }
+
+      modal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeNoteModal() {
+      document.getElementById('noteModal').classList.remove('show');
+      document.body.style.overflow = '';
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    // ESC 关闭弹窗
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeNoteModal();
+    });
+
+    // ========== 渲染学友卡片 ==========
     function renderMembers(members) {
       const grid = document.getElementById('membersGrid');
       grid.innerHTML = members.map(m => `
@@ -498,12 +828,10 @@
       `).join('');
     }
 
-    // 筛选学友
+    // ========== 筛选学友 ==========
     function filterMembers(level) {
-      // 更新按钮状态
       document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
       event.target.classList.add('active');
-      
       if (level === 'all') {
         renderMembers(allMembers);
       } else {
@@ -512,11 +840,10 @@
       }
     }
 
-    // 渲染小组
+    // ========== 渲染小组 ==========
     function renderGroups(groups) {
       const grid = document.getElementById('groupsGrid');
       const icons = ['📋', '📸', '📚', '🎯', '🔗'];
-      
       grid.innerHTML = groups.map((g, i) => `
         <div class="group-card">
           <div class="group-name">${icons[i] || '📌'} ${g.name}</div>
@@ -528,12 +855,16 @@
       `).join('');
     }
 
-    // 渲染资料列表
-    function renderMaterials(containerId, items, icon) {
+    // ========== 渲染资料列表（通用） ==========
+    function renderMaterials(containerId, items, icon, clickHandler) {
       const container = document.getElementById(containerId);
+      if (!items || items.length === 0) {
+        container.innerHTML = `<div style="color:#999;font-size:14px;text-align:center;padding:20px;">暂无内容</div>`;
+        return;
+      }
       container.innerHTML = items.map(item => `
-        <div class="material-item">
-          <div class="material-icon" style="background: #f3f4f6;">${icon}</div>
+        <div class="material-item" ${clickHandler ? `onclick="${clickHandler}('${item}')"` : ''}>
+          <div class="material-icon" style="background:#f3f4f6;">${icon}</div>
           <div class="material-info">
             <div class="material-title">${item}</div>
             <div class="material-meta">点击查看详情</div>
@@ -542,12 +873,26 @@
       `).join('');
     }
 
-    // 显示学友详情（预留）
+    // ========== 显示学友详情（预留） ==========
     function showMemberDetail(id) {
       alert('学友详情页开发中...');
     }
 
-    // 页面加载时执行
+    // ========== 页面加载 ==========
+    async function loadData() {
+      // 先加载静态数据
+      await loadStaticData();
+
+      // 再加载 CloudBase 笔记（如果登录成功）
+      const cloudOk = await initCloudBase();
+      if (cloudOk) {
+        await loadNotesFromCloudBase();
+      }
+
+      // 渲染笔记（合并）
+      renderNotes();
+    }
+
     loadData();
   </script>
 </body>

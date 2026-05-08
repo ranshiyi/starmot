@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案例分享海报 · 006期第3次</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans SC', 'PingFang SC', sans-serif;
+    background: #0f0f1a; display: flex; justify-content: center; align-items: flex-start;
+    min-height: 100vh; padding: 0;
+  }
+  .poster {
+    width: 390px;
+    background: linear-gradient(160deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    border-radius: 0; overflow: hidden;
+    box-shadow: none; position: relative;
+  }
+  /* 顶部蓝色装饰 */
+  .poster::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px;
+    background: linear-gradient(90deg, #00b4d8, #48cae4, #90e0ef);
+  }
+  /* 右上角装饰圆 */
+  .deco-circle {
+    position: absolute; top: -60px; right: -60px;
+    width: 200px; height: 200px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,180,216,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* 头部 */
+  .header { padding: 28px 24px 20px; position: relative; }
+  .series-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(0,180,216,0.12); border: 1px solid rgba(0,180,216,0.35);
+    color: #48cae4; font-size: 12px; letter-spacing: 1px;
+    padding: 5px 14px; border-radius: 20px; margin-bottom: 18px;
+  }
+  .series-dot { width: 5px; height: 5px; border-radius: 50%; background: #48cae4; }
+  .case-num { font-size: 11px; letter-spacing: 3px; color: rgba(255,255,255,0.35); margin-bottom: 10px; }
+  .big-title { font-size: 22px; font-weight: 900; color: #fff; line-height: 1.25; margin-bottom: 6px; }
+  .big-sub { font-size: 13px; color: rgba(255,255,255,0.45); }
+
+  /* 分隔线 */
+  .divider { height: 1px; background: rgba(255,255,255,0.07); margin: 0 24px; }
+
+  /* 内容区 */
+  .body { padding: 20px 24px 16px; }
+
+  /* 案例卡片 */
+  .case-section { margin-bottom: 18px; }
+  .case-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .case-avatar {
+    width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 12px; color: #fff;
+  }
+  .case-avatar.c1 { background: linear-gradient(135deg, #e94560, #ff6b6b); }
+  .case-avatar.c2 { background: linear-gradient(135deg, #f5a623, #ffd93d); }
+  .case-avatar.c3 { background: linear-gradient(135deg, #06d6a0, #4ade80); }
+  .case-avatar.c4 { background: linear-gradient(135deg, #4cc9f0, #90e0ef); }
+  .case-info { flex: 1; }
+  .case-name { font-size: 14px; font-weight: 700; color: #fff; }
+  .case-role { font-size: 10px; color: rgba(255,255,255,0.5); }
+  .case-title { font-size: 13px; font-weight: 600; color: #48cae4; margin-bottom: 8px; }
+
+  /* 案例内容 */
+  .case-content {
+    background: rgba(255,255,255,0.04); border-radius: 10px; padding: 12px 14px;
+    border-left: 3px solid rgba(0,180,216,0.4);
+  }
+  .case-text { font-size: 12px; color: rgba(255,255,255,0.78); line-height: 1.7; margin-bottom: 8px; }
+  .case-text:last-child { margin-bottom: 0; }
+  .case-highlight {
+    background: rgba(0,180,216,0.1); border-radius: 6px; padding: 8px 10px;
+    font-size: 11px; color: #90e0ef; line-height: 1.6; margin-top: 8px;
+  }
+  .case-tag {
+    display: inline-block; background: rgba(0,180,216,0.1);
+    border: 1px solid rgba(0,180,216,0.25); color: #90e0ef;
+    font-size: 10px; padding: 2px 8px; border-radius: 10px; margin-right: 4px;
+  }
+
+  /* 底部 */
+  .footer {
+    padding: 16px 24px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-brand { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.3); }
+  .footer-info { font-size: 10px; color: rgba(255,255,255,0.2); }
+</style>
+</head>
+<body>
+<div class="poster">
+  <div class="deco-circle"></div>
+  <div class="header">
+    <div class="series-tag"><span class="series-dot"></span>MOT星光共创读书会 · 006期第3次</div>
+    <div class="case-num">CASE SHARING</div>
+    <div class="big-title">学友案例分享</div>
+    <div class="big-sub">用提高营业额代替降低成本</div>
+  </div>
+  <div class="divider"></div>
+  <div class="body">
+
+    <!-- 案例1: 李莉娟 -->
+    <div class="case-section">
+      <div class="case-header">
+        <div class="case-avatar c1">李</div>
+        <div class="case-info">
+          <div class="case-name">李莉娟</div>
+          <div class="case-role">德视佳 · 诊所运营</div>
+        </div>
+      </div>
+      <div class="case-title">创造顾客比创造利润更重要</div>
+      <div class="case-content">
+        <div class="case-text">3月决策：降低利润做引流产品，让客户感受品质服务。预期是"利润下降换客流"，结果恰恰相反——顾客变多了，营业额变多了，团队气势也更好了。</div>
+        <div class="case-highlight">💡 4月创历史新高：达到诊所财务盈亏平衡点</div>
+        <div style="margin-top:8px;">
+          <span class="case-tag">引流策略</span>
+          <span class="case-tag">团队士气</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 案例2: 邵鹏易 -->
+    <div class="case-section">
+      <div class="case-header">
+        <div class="case-avatar c2">邵</div>
+        <div class="case-info">
+          <div class="case-name">邵鹏易</div>
+          <div class="case-role">新东方 · 研学运营</div>
+        </div>
+      </div>
+      <div class="case-title">从单飞研学转向亲子房车游</div>
+      <div class="case-content">
+        <div class="case-text">今年学生单飞势头小了很多，云南公司马上转型做亲子方向。房车亲子游卖爆后，整个新东方文旅风向全变，全国都改成亲子研学。</div>
+        <div class="case-highlight">🚐 高端服务：配司机+管家，白天玩大巴，晚上房车已等在篝火晚会现场</div>
+        <div style="margin-top:8px;">
+          <span class="case-tag">产品转型</span>
+          <span class="case-tag">客户洞察</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 案例3: 莹莹 -->
+    <div class="case-section">
+      <div class="case-header">
+        <div class="case-avatar c3">莹</div>
+        <div class="case-info">
+          <div class="case-name">莹莹</div>
+          <div class="case-role">服装公司 · 运营负责人</div>
+        </div>
+      </div>
+      <div class="case-title">22-25年的起伏反思</div>
+      <div class="case-content">
+        <div class="case-text">22年飞速上升→23年发现没利润→24年市场内卷砍采购成本→25年没新产品直线下降。团队搭建太猛，成本与营业额失衡。</div>
+        <div class="case-highlight">⚠️ 教训：有些成本可以降，有些成本不能一刀切。必须在过程中沉淀机制，否则膨胀后下滑都不知道原来怎么搞的</div>
+        <div style="margin-top:8px;">
+          <span class="case-tag">成本控制</span>
+          <span class="case-tag">团队规模</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 案例4: 徐克美 -->
+    <div class="case-section">
+      <div class="case-header">
+        <div class="case-avatar c4">徐</div>
+        <div class="case-info">
+          <div class="case-name">徐克美</div>
+          <div class="case-role">会计师事务所 · 创始人</div>
+        </div>
+      </div>
+      <div class="case-title">25年低流失率秘诀</div>
+      <div class="case-content">
+        <div class="case-text">行业年流失率20-30%，我们仅10%。工资只是中等，但员工从创业初期就跟着。秘诀：价值观筛选+尊重+兜底支持。</div>
+        <div class="case-highlight">🎯 农夫三泉理论：受到尊重、给得到位、干得开心——满足其二就干得住</div>
+        <div style="margin-top:8px;">
+          <span class="case-tag">员工留存</span>
+          <span class="case-tag">价值观</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="footer">
+    <div class="footer-brand">⭐ MOT星光共创读书会</div>
+    <div class="footer-info">006期 · 第3章 · 2026.05.07</div>
+  </div>
+</div>
+</body>
+</html>
