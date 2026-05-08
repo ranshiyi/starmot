@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI实战沙龙 - 星光共创</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  .salon-hero {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 30%, #fbbf24 100%);
+    border-radius: 24px;
+    padding: 60px 40px;
+    text-align: center;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .salon-hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+  }
+  .salon-mascot {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid rgba(255,255,255,0.9);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    margin-bottom: 20px;
+    transition: transform 0.3s;
+  }
+  .salon-mascot:hover {
+    transform: scale(1.05) rotate(3deg);
+  }
+  .salon-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.9);
+    color: #d97706;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 6px 18px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+  .salon-hero h1 {
+    font-size: 32px;
+    font-weight: 900;
+    color: #1e293b;
+    margin-bottom: 12px;
+  }
+  .salon-hero p {
+    font-size: 15px;
+    color: #92400e;
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+  .salon-info {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .info-item {
+    background: rgba(255,255,255,0.8);
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    color: #1e293b;
+    font-weight: 600;
+  }
+
+  /* 线上社群 */
+  .online-section {
+    margin-bottom: 32px;
+  }
+  .online-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .online-card {
+    background: white;
+    border-radius: 16px;
+    padding: 28px 20px;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .online-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+  }
+  .online-icon {
+    font-size: 36px;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .online-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 8px;
+  }
+  .online-card p {
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.5;
+  }
+
+  /* 往期回顾 */
+  .history-section { margin-bottom: 32px; }
+  .history-list {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+  }
+  .history-item {
+    padding: 20px 24px;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: background 0.15s;
+  }
+  .history-item:last-child { border-bottom: none; }
+  .history-item:hover { background: #f8fafc; }
+  .history-num {
+    font-size: 28px;
+    font-weight: 900;
+    color: #f59e0b;
+    min-width: 60px;
+  }
+  .history-content { flex: 1; }
+  .history-content h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 4px;
+  }
+  .history-content p {
+    font-size: 13px;
+    color: #64748b;
+  }
+  .history-status {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 10px;
+  }
+  .status-upcoming { background: #fef3c7; color: #d97706; }
+  .status-done { background: #dcfce7; color: #16a34a; }
+
+  @media (max-width: 768px) {
+    .salon-hero { padding: 40px 20px; }
+    .salon-hero h1 { font-size: 24px; }
+    .online-grid { grid-template-columns: 1fr; }
+    .salon-info { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 导航栏 -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="../index.html" class="nav-logo">
+      <span>🐾</span>星光共创
+    </a>
+    <div class="nav-links">
+      <a href="../index.html">首页</a>
+      <a href="salon.html" class="active">沙龙课程</a>
+      <a href="../starmot/pages/groups.html">班级自治</a>
+      <a href="../starmot/pages/members.html">学友档案</a>
+      <a href="../starmot/pages/notes.html">学友笔记</a>
+      <a href="../starmot/pages/knowledge.html">知识库</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- Hero -->
+  <div class="salon-hero">
+    <img src="../images/mot-mascot.jpg" alt="MOT莫特" class="salon-mascot">
+    <h1>摒弃空泛理论<br>主打商业AI实战</h1>
+    <p>解锁高效新赛道，与优秀者同行<br>线下共创课堂 + 线上长期社群互助</p>
+    <div class="salon-info">
+      <span class="info-item">📅 5月17日</span>
+      <span class="info-item">📍 重庆总部城</span>
+      <span class="info-item">👥 35人</span>
+    </div>
+    <a href="#" class="btn-primary" style="background:#1e293b;color:white;padding:12px 28px;border-radius:24px;text-decoration:none;font-weight:600;">🔥 2期报名已满</a>
+  </div>
+
+  <!-- 线上社群 -->
+  <div class="online-section">
+    <div class="section-title">🌐 线上社群 · 长期互助</div>
+    <div class="online-grid">
+      <a href="salon-cases.html" class="online-card" style="text-decoration:none;color:inherit;">
+        <span class="online-icon">💡</span>
+        <h3>案例共享库</h3>
+        <p>学友实战案例沉淀<br>AI落地经验互助</p>
+      </a>
+      <a href="salon-members.html" class="online-card" style="text-decoration:none;color:inherit;">
+        <span class="online-icon">👥</span>
+        <h3>学员档案</h3>
+        <p>认识每一位实战伙伴<br>跨期数人脉连接</p>
+      </a>
+      <a href="salon-resources.html" class="online-card" style="text-decoration:none;color:inherit;">
+        <span class="online-icon">📦</span>
+        <h3>实战资源</h3>
+        <p>课程资料 · 工具包<br>模板下载 · 持续更新</p>
+      </a>
+    </div>
+  </div>
+
+  <!-- 往期回顾 -->
+  <div class="history-section">
+    <div class="section-title">📖 沙龙期数</div>
+    <div class="history-list">
+      <div class="history-item">
+        <div class="history-num">002</div>
+        <div class="history-content">
+          <h4>第2期 · AI实战沙龙</h4>
+          <p>5月17日 · 重庆总部城 · 35人</p>
+        </div>
+        <span class="history-status status-upcoming">即将开始</span>
+      </div>
+      <div class="history-item">
+        <div class="history-num">001</div>
+        <div class="history-content">
+          <h4>第1期 · AI实战沙龙</h4>
+          <p>敬请期待回顾内容</p>
+        </div>
+        <span class="history-status status-done">已结束</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- 页脚 -->
+<div style="text-align:center; padding:32px 0; color:#94a3b8; font-size:13px;">
+  🐾 星光共创 · AI实战沙龙 · MOT公益读书会
+</div>
+
+</body>
+</html>

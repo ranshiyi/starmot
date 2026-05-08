@@ -1,0 +1,6 @@
+.git/
+.tcbignore
+*.md
+.DS_Store
+.vscode/
+.idea/
